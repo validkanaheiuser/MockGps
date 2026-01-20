@@ -1,15 +1,6 @@
-import java.io.FileInputStream
-import java.util.Properties
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-}
-
-var props = Properties()
-var propsFile = rootProject.file("env.properties")
-if (propsFile.exists()) {
-    props.load(FileInputStream(propsFile))
 }
 
 android {
@@ -22,8 +13,6 @@ android {
         targetSdk = 34
         versionCode = 5
         versionName = "1.0.4"
-
-        manifestPlaceholders["API_KEY"] = props.getProperty("MAPS_API_KEY") ?: ""
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -78,8 +67,8 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
-    // Google maps for Compose
-    implementation("com.google.maps.android:maps-compose:4.3.0")
+    // OSMDroid - Free OpenStreetMap
+    implementation("org.osmdroid:osmdroid-android:6.1.18")
 
     // Viewmodel
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")

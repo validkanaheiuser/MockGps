@@ -8,7 +8,7 @@ import android.location.Geocoder
 import android.os.Build
 import androidx.activity.ComponentActivity
 import androidx.core.content.ContextCompat
-import com.google.android.gms.maps.model.LatLng
+import com.lilstiffy.mockgps.models.LatLng
 import com.lilstiffy.mockgps.MockGpsApp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
