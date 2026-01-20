@@ -10,6 +10,11 @@ import androidx.activity.ComponentActivity
 import androidx.core.content.ContextCompat
 import com.google.android.gms.maps.model.LatLng
 import com.lilstiffy.mockgps.MockGpsApp
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import org.json.JSONObject
+import java.net.HttpURLConnection
+import java.net.URL
 
 
 object LocationHelper {
@@ -78,6 +83,41 @@ object LocationHelper {
             }
 
             result(LatLng(address.latitude, address.longitude))
+        }
+    }
+
+    /**
+     * Fetches the device's approximate location based on its public IP address.
+     * Uses ip-api.com free geolocation API.
+     * @return [LatLng] object with coordinates from IP geolocation, or null if failed.
+     */
+    suspend fun getLocationFromIp(): LatLng? {
+        return withContext(Dispatchers.IO) {
+            try {
+                val url = URL("http://ip-api.com/json/?fields=status,lat,lon")
+                val connection = url.openConnection() as HttpURLConnection
+                connection.requestMethod = "GET"
+                connection.connectTimeout = 10000
+                connection.readTimeout = 10000
+
+                if (connection.responseCode == HttpURLConnection.HTTP_OK) {
+                    val response = connection.inputStream.bufferedReader().use { it.readText() }
+                    val json = JSONObject(response)
+
+                    if (json.getString("status") == "success") {
+                        val lat = json.getDouble("lat")
+                        val lon = json.getDouble("lon")
+                        LatLng(lat, lon)
+                    } else {
+                        null
+                    }
+                } else {
+                    null
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                null
+            }
         }
     }
 }

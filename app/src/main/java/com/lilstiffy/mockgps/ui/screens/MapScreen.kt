@@ -6,12 +6,15 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -144,20 +147,60 @@ fun MapScreen(
                 }
             )
 
-            // Favorites button.
-            IconButton(
+            // Button row
+            Row(
                 modifier = Modifier
-                    .padding(horizontal = 12.dp)
-                    .align(Alignment.End),
-                onClick = { showBottomSheet = true },
-                colors = IconButtonDefaults.iconButtonColors(
-                    containerColor = Color.Blue, contentColor = Color.White
-                )
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp),
+                horizontalArrangement = Arrangement.End
             ) {
-                Icon(
-                    imageVector = Icons.Filled.List,
-                    contentDescription = "show favorites"
-                )
+                // IP Location button
+                IconButton(
+                    onClick = {
+                        if (isMocking) {
+                            Toast.makeText(
+                                activity,
+                                "You can't switch location while mocking",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            return@IconButton
+                        }
+                        scope.launch {
+                            val ipLocation = LocationHelper.getLocationFromIp()
+                            if (ipLocation != null) {
+                                mapViewModel.updateMarkerPosition(ipLocation)
+                                animateCamera()
+                            } else {
+                                Toast.makeText(
+                                    activity,
+                                    "Failed to get location from IP",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    },
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = Color.Green, contentColor = Color.White
+                    )
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.LocationOn,
+                        contentDescription = "use IP location"
+                    )
+                }
+
+                // Favorites button
+                IconButton(
+                    onClick = { showBottomSheet = true },
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = Color.Blue, contentColor = Color.White
+                    )
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.List,
+                        contentDescription = "show favorites"
+                    )
+                }
             }
         }
 
