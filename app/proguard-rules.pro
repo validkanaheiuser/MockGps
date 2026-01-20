@@ -34,4 +34,5 @@
 # Optional. For using GSON @Expose annotation
 -keepattributes AnnotationDefault,RuntimeVisibleAnnotations
 
--keep class com.lilstiffy.mockgps.ui.models.** { *; }
+-keep class moe.yukoDotMoe.cuteanimegirl.ui.models.** { *; }
+-keep class moe.yukoDotMoe.cuteanimegirl.models.** { *; }

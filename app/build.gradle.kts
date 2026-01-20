@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.lilstiffy.mockgps"
+    namespace = "moe.yukoDotMoe.cuteanimegirl"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.lilstiffy.mockgps"
+        applicationId = "moe.yukoDotMoe.cuteanimegirl"
         minSdk = 28
         targetSdk = 34
         versionCode = 5
@@ -69,6 +69,9 @@ dependencies {
 
     // OSMDroid - Free OpenStreetMap
     implementation("org.osmdroid:osmdroid-android:6.1.18")
+
+    // Preference (for OSMDroid config)
+    implementation("androidx.preference:preference-ktx:1.2.1")
 
     // Viewmodel
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")

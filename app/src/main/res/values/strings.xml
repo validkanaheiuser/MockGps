@@ -1,3 +1,16 @@
 <resources>
-    <string name="app_name">MockGps</string>
+    <string name="app_name">cuteanimegirl</string>
+    <string name="start_mocking">Bắt đầu giả lập</string>
+    <string name="stop_mocking">Dừng giả lập</string>
+    <string name="cant_search_while_mocking">Không thể tìm kiếm khi đang giả lập vị trí</string>
+    <string name="cant_switch_while_mocking">Không thể chuyển vị trí khi đang giả lập</string>
+    <string name="failed_get_ip_location">Không thể lấy vị trí từ IP</string>
+    <string name="use_ip_location">Dùng vị trí IP</string>
+    <string name="show_favorites">Hiện danh sách yêu thích</string>
+    <string name="toggle_favorite">Yêu thích</string>
+    <string name="selected_location">Vị trí đã chọn</string>
+    <string name="search_hint">Tìm kiếm địa điểm...</string>
+    <string name="address">Địa chỉ</string>
+    <string name="coordinates">Tọa độ</string>
+    <string name="mock_location_failed">Giả lập vị trí thất bại, bạn phải đặt ứng dụng này làm ứng dụng giả lập vị trí.</string>
 </resources>
